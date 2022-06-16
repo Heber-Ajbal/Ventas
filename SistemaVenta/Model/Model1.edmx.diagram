@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5f6946448d504dbe876bdee74e30d1e1" Name="Diagram1">
+        <EntityTypeShape EntityType="DBSistemVentaModel.Category" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSistemVentaModel.Client" Width="1.5" PointX="7.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSistemVentaModel.Permissions" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSistemVentaModel.Product" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSistemVentaModel.Provider" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSistemVentaModel.Purchase" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSistemVentaModel.Purchase_Detail" Width="1.5" PointX="7.5" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSistemVentaModel.ROL" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSistemVentaModel.Sale" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSistemVentaModel.Sale_Detail" Width="1.5" PointX="7.5" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSistemVentaModel.Users" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <AssociationConnector Association="DBSistemVentaModel.FK_CategoryProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSistemVentaModel.FK_RolPermission" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSistemVentaModel.FK_ProductPurchaseDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSistemVentaModel.FK_ProductSaleDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSistemVentaModel.FK_ProviderPurchase" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSistemVentaModel.FK_PurchasePurchaseDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSistemVentaModel.FK_UserPurchase" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSistemVentaModel.FK_RolUser" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSistemVentaModel.FK_SaleSaleDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSistemVentaModel.FK_UserSale" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

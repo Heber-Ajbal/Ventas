@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBSistemVentaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="Boolean" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_CategoryProduct" FromRole="Category" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="ClientId" />
+    </Key>
+    <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Document" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NameLast" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="Boolean" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Permissions">
+    <Key>
+      <PropertyRef Name="PermissionId" />
+    </Key>
+    <Property Name="PermissionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RolId" Type="Int32" />
+    <Property Name="NameMenu" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ROL" Relationship="Self.FK_RolPermission" FromRole="Permissions" ToRole="ROL" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CategoryId" Type="Int32" />
+    <Property Name="Stock" Type="Int32" Nullable="false" />
+    <Property Name="PurchasePrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="SalePrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="State" Type="Boolean" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_CategoryProduct" FromRole="Product" ToRole="Category" />
+    <NavigationProperty Name="Purchase_Detail" Relationship="Self.FK_ProductPurchaseDetail" FromRole="Product" ToRole="Purchase_Detail" />
+    <NavigationProperty Name="Sale_Detail" Relationship="Self.FK_ProductSaleDetail" FromRole="Product" ToRole="Sale_Detail" />
+  </EntityType>
+  <EntityType Name="Provider">
+    <Key>
+      <PropertyRef Name="ProviderId" />
+    </Key>
+    <Property Name="ProviderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Document" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BusinessName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="Boolean" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Purchase" Relationship="Self.FK_ProviderPurchase" FromRole="Provider" ToRole="Purchase" />
+  </EntityType>
+  <EntityType Name="Purchase">
+    <Key>
+      <PropertyRef Name="PurchaseId" />
+    </Key>
+    <Property Name="PurchaseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="ProviderId" Type="Int32" />
+    <Property Name="TypeDocument" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NumberDocument" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Total" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Provider" Relationship="Self.FK_ProviderPurchase" FromRole="Purchase" ToRole="Provider" />
+    <NavigationProperty Name="Purchase_Detail" Relationship="Self.FK_PurchasePurchaseDetail" FromRole="Purchase" ToRole="Purchase_Detail" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_UserPurchase" FromRole="Purchase" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Purchase_Detail">
+    <Key>
+      <PropertyRef Name="PurchaseDetailId" />
+    </Key>
+    <Property Name="PurchaseDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PurchaseId" Type="Int32" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="PurchasePrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="SalePrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Stock" Type="Int32" />
+    <Property Name="Total" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_ProductPurchaseDetail" FromRole="Purchase_Detail" ToRole="Product" />
+    <NavigationProperty Name="Purchase" Relationship="Self.FK_PurchasePurchaseDetail" FromRole="Purchase_Detail" ToRole="Purchase" />
+  </EntityType>
+  <EntityType Name="ROL">
+    <Key>
+      <PropertyRef Name="RolId" />
+    </Key>
+    <Property Name="RolId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Permissions" Relationship="Self.FK_RolPermission" FromRole="ROL" ToRole="Permissions" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_RolUser" FromRole="ROL" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Sale">
+    <Key>
+      <PropertyRef Name="SaleId" />
+    </Key>
+    <Property Name="SaleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="TypeDocument" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NumberDocument" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DocumentClient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NameClient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PaymentAmount" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Turned" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Total" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Sale_Detail" Relationship="Self.FK_SaleSaleDetail" FromRole="Sale" ToRole="Sale_Detail" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_UserSale" FromRole="Sale" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Sale_Detail">
+    <Key>
+      <PropertyRef Name="SaleDetailId" />
+    </Key>
+    <Property Name="SaleDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SaleId" Type="Int32" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="SalePrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Stock" Type="Int32" />
+    <Property Name="Total" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_ProductSaleDetail" FromRole="Sale_Detail" ToRole="Product" />
+    <NavigationProperty Name="Sale" Relationship="Self.FK_SaleSaleDetail" FromRole="Sale_Detail" ToRole="Sale" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Document" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RolId" Type="Int32" />
+    <Property Name="State" Type="Boolean" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Purchase" Relationship="Self.FK_UserPurchase" FromRole="Users" ToRole="Purchase" />
+    <NavigationProperty Name="ROL" Relationship="Self.FK_RolUser" FromRole="Users" ToRole="ROL" />
+    <NavigationProperty Name="Sale" Relationship="Self.FK_UserSale" FromRole="Users" ToRole="Sale" />
+  </EntityType>
+  <Association Name="FK_CategoryProduct">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolPermission">
+    <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
+    <End Role="Permissions" Type="Self.Permissions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROL">
+        <PropertyRef Name="RolId" />
+      </Principal>
+      <Dependent Role="Permissions">
+        <PropertyRef Name="RolId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductPurchaseDetail">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="Purchase_Detail" Type="Self.Purchase_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="Purchase_Detail">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductSaleDetail">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="Sale_Detail" Type="Self.Sale_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="Sale_Detail">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProviderPurchase">
+    <End Role="Provider" Type="Self.Provider" Multiplicity="0..1" />
+    <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Provider">
+        <PropertyRef Name="ProviderId" />
+      </Principal>
+      <Dependent Role="Purchase">
+        <PropertyRef Name="ProviderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PurchasePurchaseDetail">
+    <End Role="Purchase" Type="Self.Purchase" Multiplicity="0..1" />
+    <End Role="Purchase_Detail" Type="Self.Purchase_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Purchase">
+        <PropertyRef Name="PurchaseId" />
+      </Principal>
+      <Dependent Role="Purchase_Detail">
+        <PropertyRef Name="PurchaseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserPurchase">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Purchase">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolUser">
+    <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROL">
+        <PropertyRef Name="RolId" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="RolId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SaleSaleDetail">
+    <End Role="Sale" Type="Self.Sale" Multiplicity="0..1" />
+    <End Role="Sale_Detail" Type="Self.Sale_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sale">
+        <PropertyRef Name="SaleId" />
+      </Principal>
+      <Dependent Role="Sale_Detail">
+        <PropertyRef Name="SaleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserSale">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Sale">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DBSistemVentaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Category" EntityType="Self.Category" />
+    <EntitySet Name="Client" EntityType="Self.Client" />
+    <EntitySet Name="Permissions" EntityType="Self.Permissions" />
+    <EntitySet Name="Product" EntityType="Self.Product" />
+    <EntitySet Name="Provider" EntityType="Self.Provider" />
+    <EntitySet Name="Purchase" EntityType="Self.Purchase" />
+    <EntitySet Name="Purchase_Detail" EntityType="Self.Purchase_Detail" />
+    <EntitySet Name="ROL" EntityType="Self.ROL" />
+    <EntitySet Name="Sale" EntityType="Self.Sale" />
+    <EntitySet Name="Sale_Detail" EntityType="Self.Sale_Detail" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="FK_CategoryProduct" Association="Self.FK_CategoryProduct">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolPermission" Association="Self.FK_RolPermission">
+      <End Role="ROL" EntitySet="ROL" />
+      <End Role="Permissions" EntitySet="Permissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductPurchaseDetail" Association="Self.FK_ProductPurchaseDetail">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Purchase_Detail" EntitySet="Purchase_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductSaleDetail" Association="Self.FK_ProductSaleDetail">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Sale_Detail" EntitySet="Sale_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProviderPurchase" Association="Self.FK_ProviderPurchase">
+      <End Role="Provider" EntitySet="Provider" />
+      <End Role="Purchase" EntitySet="Purchase" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PurchasePurchaseDetail" Association="Self.FK_PurchasePurchaseDetail">
+      <End Role="Purchase" EntitySet="Purchase" />
+      <End Role="Purchase_Detail" EntitySet="Purchase_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserPurchase" Association="Self.FK_UserPurchase">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Purchase" EntitySet="Purchase" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolUser" Association="Self.FK_RolUser">
+      <End Role="ROL" EntitySet="ROL" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SaleSaleDetail" Association="Self.FK_SaleSaleDetail">
+      <End Role="Sale" EntitySet="Sale" />
+      <End Role="Sale_Detail" EntitySet="Sale_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserSale" Association="Self.FK_UserSale">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Sale" EntitySet="Sale" />
+    </AssociationSet>
+    <FunctionImport Name="sp_ListUsers" ReturnType="Collection(DBSistemVentaModel.sp_ListUsers_Result)" />
+  </EntityContainer>
+  <ComplexType Name="sp_ListUsers_Result">
+    <Property Type="Int32" Name="UserId" Nullable="false" />
+    <Property Type="String" Name="Document" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="RolId" Nullable="true" />
+    <Property Type="Boolean" Name="State" Nullable="true" />
+    <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
+  </ComplexType>
+</Schema>
